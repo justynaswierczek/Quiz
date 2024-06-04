@@ -1,0 +1,54 @@
+{% load static %}
+
+<html>
+<head>
+    <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link href="{% static 'login/style.css' %}" rel="stylesheet"/>
+    <link href="{% static 'https://fonts.googleapis.com/css?family=Ubuntu' %}" rel="stylesheet"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <link href="{% static 'path/to/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"/>
+    <title>QUIZ APP</title>
+
+</head>
+<body>
+<div class="main">
+    <br>
+    <br>
+    <br>
+    <p align="center" class="quizName">Choose a Quiz To Take</p>
+    <div class="c">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body"></div>
+                <br>
+            </div>
+            <a style="color: rgba(43,43,43,0.88);" class="quizName">{{quiz.name}}</a>
+            <nav aria-label="...">
+                <br>
+                <br>
+                <p><b style="font-size: 20px;">About Test</b></p>
+                <p>{{quiz.description}}</p>
+                <p><b style="font-size: 20px;">Total Questions: {{quiz.total_questions}}</b></p>
+                <ul class="pagination">
+                    <div class="prev-next">
+                        <li class="page-item disabled">
+                            <a style="padding: 7px 25px; font-size: 16px;"class="page-link" href="?page={{ prev_page }}" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item">
+                            <a style="padding: 7px 25px;font-size: 16px;"class="page-link" href="?page={{ next_page }}">Next</a>
+                        </li>
+                    </div>
+                </ul>
+                <div class="button-group">
+                    <a style="padding: 5px 25px;font-size: 15px;" href="answer-quiz/{{quiz.name}}" class="btn btn-primary">Start Test</a>
+                    <a style="padding: 5px 25px;font-size: 15px;" href="{% url 'App:dashboard' %}" class="btn btn-secondary">Back</a>
+                </div>
+            </nav>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+{% load static %}
+
+<html>
+ <head>
+  <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+ <link href="{% static 'login/style.css' %}" rel="stylesheet"/>
+ <link href="{% static 'https://fonts.googleapis.com/css?family=Ubuntu' %}" rel="stylesheet"/>
+ <meta content="width=device-width, initial-scale=1" name="viewport"/>
+ <link href="{% static 'path/to/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"/>
+   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+ <title>
+ QUIZ APP
+ </title>
+ </head>
+
+ <body>
+ <div class="main">
+  <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo" >
+ <p align="center" class="sign" >
+ Create Account
+ </p>
+ <form class="form1" method="POST">
+ {% if messages %}
+<ul class="messages">
+ {% for message in messages %}
+ <li {% if message.tags %} class="{{ message.tags }}"{% endif %} style="color:rgba(225, 152, 0, 0.8);">{{ message }}</li>
+ {% endfor %}
+</ul>
+{% endif %}
+ {% csrf_token %}
+
+  <input class="input-field" placeholder="Username" name="username" type="text" style="font-size: larger;border-radius: 5em;"/>
+  <input class="input-field" placeholder="Email" name="email" type="email" style="font-size: larger;border-radius: 5em;"/>
+  <input class="input-field" placeholder="Password" name="password" type="password" style="font-size: larger; border-radius: 5em;"/>
+
+  <div style="margin-top: 10px;">
+   <button align="center" class="submit" type="submit" style="font-size: larger;border-radius: 5em;">
+    Register
+   </button>
+  </div>
+
+<div class="forgot">
+  <a href="login"> Already have an account? Login </a>
+</div>
+ </form>
+ </div>
+ </body>
+</html>
