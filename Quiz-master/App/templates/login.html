@@ -2,11 +2,17 @@
 
 <html>
  <head>
+      <!-- Dodanie ikony do strony -->
   <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+     <!-- Połączenie z arkuszem stylów dla strony logowania -->
  <link href="{% static 'login/style.css' %}" rel="stylesheet"/>
+      <!-- Połączenie z Google Fonts w celu użycia niestandardowych czcionek -->
  <link href="{% static 'https://fonts.googleapis.com/css?family=Ubuntu' %}" rel="stylesheet"/>
+     <!-- Zapewnienie responsywności strony na wszystkich urządzeniach -->
  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+       <!-- Połączenie z Font Awesome dla ikon -->
  <link href="{% static 'path/to/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"/>
+     <!-- Połączenie z Boxicons dla dodatkowych ikon -->
    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
  <title>
  QUIZ APP
@@ -16,12 +22,16 @@
  <div class="main">
      <br>
      <br>
+     <!-- Wyświetlanie logo -->
   <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo" >
+    <!-- Wyświetlanie napisu powitalnego -->
  <p align="center" class="sign" >
   Welcome to Quiz App
  </p>
- <form class="form1" method="POST">
+       <!-- Formularz logowania -->
+     <form class="form1" method="POST">
  {% csrf_token %}
+         <!-- Wyświetlanie komunikatów o błędach, jeśli istnieją -->
  {% if messages %}
 <ul class="messages">
  {% for message in messages %}
@@ -29,8 +39,11 @@
  {% endfor %}
 </ul>
 {% endif %}
+         <!-- Pole dla nazwy użytkownika -->
     <input class="input-field" placeholder="Username" name="username" type="text" style="font-size: larger;border-radius: 7em; margin-bottom: 15px;" />
+    <!-- Pole dla hasła -->
      <input class="input-field" placeholder="Password" name="password" type="password" style="font-size: larger;border-radius: 7em;" />
+            <!-- Przycisk do zalogowania -->
 <div class="login-button">
     <button type="submit" class="submit">
         Sign in
@@ -38,6 +51,7 @@
 </div>
  </form>
     <div class="forgot">
+        <!-- Przycisk do rejestracji -->
         <a href="register">Don't have an account? Register</a>
     </div>
    </div>

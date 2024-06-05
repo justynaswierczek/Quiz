@@ -2,52 +2,61 @@
 
 <html>
 <head>
+    <!-- Dodanie ikony do strony -->
     <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+    <!-- Połączenie z Bootstrap dla stylizacji -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
+    <!-- Opcjonalny motyw Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <!-- Latest compiled and minified JavaScript -->
+    <!-- Najnowszy skompilowany i zminimalizowany JavaScript Bootstrap -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Połączenie z arkuszem stylów -->
     <link href="{% static 'login/style.css' %}" rel="stylesheet"/>
+    <!-- Połączenie z Google Fonts w celu użycia niestandardowych czcionek -->
     <link href="{% static 'https://fonts.googleapis.com/css?family=Ubuntu' %}" rel="stylesheet"/>
+    <!-- Zapewnienie responsywności strony na wszystkich urządzeniach -->
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <!-- Połączenie z Font Awesome dla ikon -->
     <link href="{% static 'path/to/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"/>
     <title>QUIZ APP</title>
-
 </head>
 <body>
 <div class="main">
-    <br>
-    <br>
-    <br>
+    <br><br><br>
+    <!-- Nagłówek wybierania quizu -->
     <p align="center" class="quizName">Choose a Quiz To Take</p>
     <div class="c">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body"></div>
-                <br>
-            </div>
-            <a style="color: rgba(43,43,43,0.88);" class="quizName">{{quiz.name}}</a>
-            <nav aria-label="...">
-                <br>
-                <br>
-                <p><b style="font-size: 20px;">About Test</b></p>
-                <p>{{quiz.description}}</p>
-                <p><b style="font-size: 20px;">Total Questions: {{quiz.total_questions}}</b></p>
-                <ul class="pagination">
-                    <div class="prev-next">
-                        <li class="page-item disabled">
-                            <a style="padding: 7px 25px; font-size: 16px;"class="page-link" href="?page={{ prev_page }}" tabindex="-1">Previous</a>
-                        </li>
-                        <li class="page-item">
-                            <a style="padding: 7px 25px;font-size: 16px;"class="page-link" href="?page={{ next_page }}">Next</a>
-                        </li>
-                    </div>
-                </ul>
-                <div class="button-group">
-                    <a style="padding: 5px 25px;font-size: 15px;" href="answer-quiz/{{quiz.name}}" class="btn btn-primary">Start Test</a>
-                    <a style="padding: 5px 25px;font-size: 15px;" href="{% url 'App:dashboard' %}" class="btn btn-secondary">Back</a>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body"></div>
+            <br>
+        </div>
+        <!-- Wyświetlanie nazwy quizu -->
+        <a style="color: rgba(43,43,43,0.88);" class="quizName">{{quiz.name}}</a>
+        <nav aria-label="...">
+            <br><br>
+            <!-- Informacje o quizie -->
+            <p><b style="font-size: 20px;">About Test</b></p>
+            <p>{{quiz.description}}</p>
+            <p><b style="font-size: 20px;">Total Questions: {{quiz.total_questions}}</b></p>
+            <ul class="pagination">
+                <div class="prev-next">
+                    <!-- Przycisk poprzedniej strony (nieaktywny) -->
+                    <li class="page-item disabled">
+                        <a style="padding: 7px 25px; font-size: 16px;" class="page-link" href="?page={{ prev_page }}" tabindex="-1">Previous</a>
+                    </li>
+                    <!-- Przycisk następnej strony -->
+                    <li class="page-item">
+                        <a style="padding: 7px 25px; font-size: 16px;" class="page-link" href="?page={{ next_page }}">Next</a>
+                    </li>
                 </div>
-            </nav>
+            </ul>
+            <div class="button-group">
+                <!-- Przycisk rozpoczęcia testu -->
+                <a style="padding: 5px 25px; font-size: 15px;" href="answer-quiz/{{quiz.name}}" class="btn btn-primary">Start Test</a>
+                <!-- Przycisk powrotu do dashboardu -->
+                <a style="padding: 5px 25px; font-size: 15px;" href="{% url 'App:dashboard' %}" class="btn btn-secondary">Back</a>
+            </div>
+        </nav>
     </div>
 </div>
 </body>

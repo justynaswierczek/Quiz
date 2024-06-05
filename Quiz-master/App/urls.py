@@ -4,6 +4,7 @@ from django.urls import path, include
 from . import views
 app_name = "App"
 
+# Definicja ścieżek URL dla aplikacji
 urlpatterns = [
  path("", views.login, name="login"),
  path("login", views.login, name="login"),

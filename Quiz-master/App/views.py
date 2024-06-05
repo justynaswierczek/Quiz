@@ -10,22 +10,24 @@ from faunadb.client import FaunaClient
 import hashlib
 import datetime
 
+# Inicjalizacja klienta FaunaDB
 client = FaunaClient(secret="fnAFfiGLTXAA0Bz_4ysTnY9dz1BoSBSclncNY4n9")
 indexes = client.query(q.paginate(q.indexes()))
 
-
-
 def register(request):
+    # Rejestracja nowego użytkownika
     if request.method == "POST":
         username = request.POST.get("username").strip().lower()
         email = request.POST.get("email").strip().lower()
         password = request.POST.get("password")
 
         try:
+            # Sprawdzenie, czy użytkownik już istnieje
             user = client.query(q.get(q.match(q.index("users_index"), username)))
             messages.add_message(request, messages.INFO, 'User already exists with that username.')
             return redirect("App:register")
         except:
+            # Tworzenie nowego użytkownika
             user = client.query(q.create(q.collection("Users"), {
                 "data": {
                     "username": username,
@@ -39,11 +41,13 @@ def register(request):
     return render(request, "register.html")
 
 def login(request):
+    # Logowanie użytkownika
     if request.method == "POST":
         username = request.POST.get("username").strip().lower()
         password = request.POST.get("password")
 
         try:
+            # Sprawdzenie danych logowania
             user = client.query(q.get(q.match(q.index("users_index"), username)))
             if hashlib.sha512(password.encode()).hexdigest() == user["data"]["password"]:
                 request.session["user"] = {
@@ -54,12 +58,12 @@ def login(request):
             else:
                 raise Exception()
         except:
-            messages.add_message(request, messages.INFO,
-                                 "You have supplied invalid login credentials, please try again!", "danger")
+            messages.add_message(request, messages.INFO, "You have supplied invalid login credentials, please try again!", "danger")
             return redirect("App:login")
     return render(request, "login.html")
 
 def dashboard(request):
+    # Wyświetlanie dashboardu użytkownika
     if "user" in request.session:
         user = request.session["user"]["username"]
         context = {"user": user}
@@ -68,15 +72,18 @@ def dashboard(request):
         return HttpResponseNotFound("Page not found")
 
 def create_quiz(request):
+    # Tworzenie nowego quizu
     if request.method == "POST":
         name = request.POST.get("quiz_name")
         description = request.POST.get("quiz_description")
         total_questions = request.POST.get("total_questions")
         try:
+            # Sprawdzenie, czy quiz o tej nazwie już istnieje
             quiz = client.query(q.get(q.match(q.index("quiz_index"), name)))
             messages.add_message(request, messages.INFO, 'A Quiz with that name already exists.')
             return redirect("App:create-quiz")
         except:
+            # Tworzenie nowego quizu
             quiz = client.query(q.create(q.collection("Quiz"), {
                 "data": {
                     "status": "active",
@@ -90,23 +97,25 @@ def create_quiz(request):
     return render(request, "create_quiz.html")
 
 def quiz(request):
+    # Wyświetlanie listy dostępnych quizów
     try:
         all_quiz = client.query(q.paginate(q.match(q.index("quiz_get_index"), "active")))["data"]
         quiz_count = len(all_quiz)
         page_number = int(request.GET.get('page', 1))
         quiz = client.query(q.get(q.ref(q.collection("Quiz"), all_quiz[page_number - 1].id())))["data"]
-        context = {"count": quiz_count, "quiz": quiz, "next_page": min(quiz_count, page_number + 1),
-                   "prev_page": max(1, page_number - 1)}
+        context = {"count": quiz_count, "quiz": quiz, "next_page": min(quiz_count, page_number + 1), "prev_page": max(1, page_number - 1)}
         return render(request, "quiz.html", context)
     except:
         return render(request, "quiz.html")
 
 def create_question(request):
+    # Tworzenie nowego pytania do quizu
     quiz_all = client.query(q.paginate(q.match(q.index("quiz_get_index"), "active")))
     all_quiz = []
     for i in quiz_all["data"]:
         all_quiz.append(q.get(q.ref(q.collection("Quiz"), i.id())))
     context = {"quiz_all": client.query(all_quiz)}
+
     if request.method == "POST":
         quiz_name = request.POST.get("quiz_name")
         question_asked = request.POST.get("question")
@@ -116,10 +125,12 @@ def create_question(request):
         answer_4 = request.POST.get("answer_4")
         correct_answer = request.POST.get("correct_answer")
         try:
+            # Sprawdzenie, czy pytanie już istnieje
             question_create = client.query(q.get(q.match(q.index("question_index"), question_asked)))
             messages.add_message(request, messages.INFO, 'This question already exists')
             return redirect("App:create-question")
         except:
+            # Tworzenie nowego pytania
             question_create = client.query(q.create(q.collection("Question"), {
                 "data": {
                     "quiz_name": quiz_name,
@@ -136,6 +147,7 @@ def create_question(request):
     return render(request, "create_questions.html", context)
 
 def answer_quiz(request, slug):
+    # Odpowiadanie na pytania w quizie
     try:
         quiz = client.query(q.get(q.match(q.index("quiz_index"), slug)))["data"]
     except Exception as e:
@@ -178,6 +190,7 @@ def answer_quiz(request, slug):
     })
 
 def quiz_result(request, slug):
+    # Wyświetlanie wyników quizu
     try:
         quiz = client.query(q.get(q.match(q.index("quiz_index"), slug)))["data"]
         questions_refs = client.query(q.paginate(q.match(q.index("questions_quiz_index"), quiz["name"])))["data"]

@@ -1,42 +1,53 @@
 {% load static %}
 <html>
 <head>
+    <!-- Dodanie ikony do strony -->
     <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+    <!-- Połączenie z Bootstrap dla stylizacji -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Połączenie z opcjonalnym motywem Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <!-- Połączenie z arkuszem stylów -->
     <link href="{% static 'login/style.css' %}" rel="stylesheet"/>
+    <!-- Połączenie z Google Fonts w celu użycia niestandardowych czcionek -->
     <link href="{% static 'https://fonts.googleapis.com/css?family=Ubuntu' %}" rel="stylesheet"/>
+    <!-- Zapewnienie responsywności strony na wszystkich urządzeniach -->
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <!-- Połączenie z Font Awesome dla ikon -->
     <link href="{% static 'path/to/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"/>
     <title>QUIZ APP</title>
 </head>
 <body>
 <div class="main">
-    <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo" >
-    <p align="center" class="sign" >
-        Welcome {{ user }}
-    </p>
-        <div class="row" >
-                <form class="form1">
-                    {% if messages %}
-                        <ul class="messages">
-                            {% for message in messages %}
-                                <li>{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color:red;">{{ message }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                    <a href="quiz"><button type="button" class="btn" >START QUIZ</button></a>
-                </form>
-                <form class="form1">
-                    <a href="create-quiz"><button type="button" class="btn" >CREATE QUIZ</button></a>
-                </form>
-                <form class="form1">
-                    <a href="create-questions"><button type="button" class="btn" >CREATE QUESTION</button></a>
-                </form>
-                <form class="form1">
-                    <a href="login"><button type="button" class="btn" >LOGOUT</button></a>
-                </form>
-        </div>
+    <!-- Wyświetlanie logo -->
+    <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo">
+    <!-- Powitanie użytkownika -->
+    <p align="center" class="sign">Welcome {{ user }}</p>
+    <div class="row">
+        <!-- Formularz z przyciskiem startu quizu -->
+        <form class="form1">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li>{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color:red;">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <a href="quiz"><button type="button" class="btn">START QUIZ</button></a>
+        </form>
+        <!-- Formularz z przyciskiem tworzenia quizu -->
+        <form class="form1">
+            <a href="create-quiz"><button type="button" class="btn">CREATE QUIZ</button></a>
+        </form>
+        <!-- Formularz z przyciskiem tworzenia pytań -->
+        <form class="form1">
+            <a href="create-questions"><button type="button" class="btn">CREATE QUESTION</button></a>
+        </form>
+        <!-- Formularz z przyciskiem wylogowania -->
+        <form class="form1">
+            <a href="login"><button type="button" class="btn">LOGOUT</button></a>
+        </form>
     </div>
+</div>
 </body>
 </html>

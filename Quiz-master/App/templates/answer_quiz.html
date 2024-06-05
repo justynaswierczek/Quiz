@@ -2,13 +2,17 @@
 
 <html>
 <head>
+    <!-- Połączenie z Bootstrap dla stylizacji -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Połączenie z Google Fonts w celu użycia niestandardowych czcionek -->
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-
+    <!-- Najnowszy skompilowany i zminimalizowany JavaScript Bootstrap -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+    <!-- Połączenie z arkuszem stylów -->
     <link href="{% static 'login/style.css' %}" rel="stylesheet"/>
+    <!-- Zapewnienie responsywności strony na wszystkich urządzeniach -->
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <!-- Połączenie z Font Awesome dla ikon -->
     <link href="{% static 'path/to/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"/>
     <title>QUIZ APP</title>
     <style>
@@ -38,65 +42,64 @@
         .options {
             font-size: 18px;
             text-align: left;
-
         }
     </style>
 </head>
 <body>
 <div class="main">
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    <br><br><br><br><br>
+    <!-- Wyświetlanie nazwy quizu -->
     <div class="quiz-name">
         <h1 style="font-weight: bold">{{ quiz.name }}</h1>
     </div>
+    <!-- Wyświetlanie pytania -->
     <div class="question-text">
-        <p style="font-size: 22px; text-align: center; margin-left: 1em; margin-right: 1em; " >{{ question.question_asked }}</p>
+        <p style="font-size: 22px; text-align: center; margin-left: 1em; margin-right: 1em;">{{ question.question_asked }}</p>
     </div>
+    <!-- Formularz z odpowiedziami -->
     <form method="POST">
         {% csrf_token %}
         <div class="options">
-            <label >
-                <input type="radio"  name="answer" value="{{ question.answer_1 }}"
-                    {% if saved_answer == question.answer_1 %} checked {% endif %}>
+            <!-- Opcja odpowiedzi A -->
+            <label>
+                <input type="radio" name="answer" value="{{ question.answer_1 }}" {% if saved_answer == question.answer_1 %} checked {% endif %}>
                 A. {{ question.answer_1 }}
             </label><br>
+            <!-- Opcja odpowiedzi B -->
             <label>
-                <input type="radio" name="answer" value="{{ question.answer_2 }}"
-                    {% if saved_answer == question.answer_2 %} checked {% endif %}>
+                <input type="radio" name="answer" value="{{ question.answer_2 }}" {% if saved_answer == question.answer_2 %} checked {% endif %}>
                 B. {{ question.answer_2 }}
             </label><br>
+            <!-- Opcja odpowiedzi C -->
             <label>
-                <input type="radio" name="answer" value="{{ question.answer_3 }}"
-                    {% if saved_answer == question.answer_3 %} checked {% endif %}>
+                <input type="radio" name="answer" value="{{ question.answer_3 }}" {% if saved_answer == question.answer_3 %} checked {% endif %}>
                 C. {{ question.answer_3 }}
             </label><br>
+            <!-- Opcja odpowiedzi D -->
             <label>
-                <input type="radio" name="answer" value="{{ question.answer_4 }}"
-                    {% if saved_answer == question.answer_4 %} checked {% endif %}>
+                <input type="radio" name="answer" value="{{ question.answer_4 }}" {% if saved_answer == question.answer_4 %} checked {% endif %}>
                 D. {{ question.answer_4 }}
             </label><br>
         </div>
-
+        <!-- Ukryte pole z pytaniem -->
         <input type="hidden" name="question" value="{{ question.question_asked }}"/>
-<br>
-                <div class="btn-group">
+        <br>
+        <!-- Przyciski nawigacyjne -->
+        <div class="btn-group">
             {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}" class="btn" style="padding: 5px 25px;font-size: 15px;border-radius: 1.5em; text-align: center;">Previous</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn" style="padding: 5px 25px; font-size: 15px; border-radius: 1.5em; text-align: center;">Previous</a>
             {% endif %}
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}" class="btn" style="padding: 5px 25px;font-size: 15px;border-radius: 2.5em; text-align: center;">Next</a>
+            <a href="?page={{ page_obj.next_page_number }}" class="btn" style="padding: 5px 25px; font-size: 15px; border-radius: 2.5em; text-align: center;">Next</a>
             {% endif %}
         </div>
-        <br>
-        <br>
+        <br><br>
         <div class="btn-group">
-            <button type="submit" class="btn" style="padding: 10px 35px;font-size: 13px; margin: 5px;border-radius: 2.5em;">Save Answer</button>
-            <a href="{% url 'App:dashboard' %}" class="btn" style="padding: 10px 35px;font-size: 15px; margin: 5px;border-radius: 2.5em;">Back</a>
+            <!-- Przycisk zapisu odpowiedzi -->
+            <button type="submit" class="btn" style="padding: 10px 35px; font-size: 13px; margin: 5px; border-radius: 2.5em;">Save Answer</button>
+            <!-- Przycisk powrotu do dashboardu -->
+            <a href="{% url 'App:dashboard' %}" class="btn" style="padding: 10px 35px; font-size: 15px; margin: 5px; border-radius: 2.5em;">Back</a>
         </div>
-
     </form>
 </div>
 </body>
