@@ -14,7 +14,7 @@ A web-based quiz application built with Django and FaunaDB. Users can register, 
 
 1. **Clone the repository:**
     ```bash
-    git clone https://github.com/justynaswierczek/quiz-app.git
+    git clone https://github.com/justynaswierczek/Quiz.git
     cd quiz-app
     ```
 
